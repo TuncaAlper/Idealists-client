@@ -131,7 +131,6 @@ const Registration = (props) => {
       })
       .catch(err => {
         if (err.status === 400) {
-          // dispatch(userLoginFailed(err.response.body.message))
         } else {
           console.error(err);
         }

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import styled from '@emotion/styled';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import jsonFormData from './idea-form-v1';
-import logo from '../../../res/logo_horizontal_white.png';
+
 import { PoseGroup } from 'react-pose';
 import posed from 'react-pose';
 import QuestionGroup from '../../reogranisation/Questions/QuestionGroup';
@@ -23,14 +23,6 @@ const Submission = (props) => {
   useEffect(() => {
     setProgress(activeGroup / questionGroups.length);
   }, [activeGroup]);
-
-
-  // const checkLocalStorage = () => {
-  //   let token = localStorage.getItem('currentUserJwt')
-  //   console.log(token)
-  // }
-
-  // checkLocalStorage()
 
   const handleAnswers = (id, value) => {
     setAnswers({

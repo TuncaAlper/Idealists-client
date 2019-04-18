@@ -77,7 +77,7 @@ const CompleteSubmission = (props) => {
 
     handleSubmit = (event) => {
       if (this.state.value === (props.authState.user.firstName + ' ' + props.authState.user.lastName)) {
-        alert(this.state.value + ' has given consent to the agreement!'); //change it
+        alert(this.state.value + ' has given consent to the agreement!'); 
         // setAgreeBttn(true)
         submitIdea()
         event.preventDefault()
@@ -110,9 +110,6 @@ const CompleteSubmission = (props) => {
     <GroupContainer>
       <UserAgreement authState={props.authState} login={props.login} />
       <AgreementConfirm />
-      {/* <Button text={'I agree'} onClick={submitIdea}
-        disabled={!agreeBttn}
-        withIcon /> */}
     </GroupContainer>
   );
 };

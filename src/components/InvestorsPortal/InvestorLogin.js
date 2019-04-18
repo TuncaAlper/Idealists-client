@@ -34,7 +34,6 @@ export default function InvestorLogin(props) {
   
   if (props.authState.loggedIn !== true) return (
     <Container>
-      {/* <Header /> */}
       
       <Logo src={logo} alt='Logo' />
       <LeftSide>

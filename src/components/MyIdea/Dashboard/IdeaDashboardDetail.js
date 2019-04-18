@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 
 import Card from '@material-ui/core/Card'
 
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid'
 

@@ -39,12 +39,6 @@ export default function IdeaLogin(props) {
     props.user(); 
     }
   }
-
-
-  //logout code
-
-  //logout code
-  console.log('line 47')
   
   if (!localStorage.currentUserJwt) { 
     props.history.replace('/MyIdea/login'); 

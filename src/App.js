@@ -31,10 +31,6 @@ class App extends Component {
     }
   };
 
-  // componentWillUpdate() {
-  //   this.updateLocalStorage()
-  // }
-
   requestLogin = (email, password) => {
     request
       .post(`${baseUrl}/login`)
@@ -173,7 +169,6 @@ class App extends Component {
                 <Route exact path='/MyIdea/new' render={(props) => {
                   return <Submission {...props} authState={this.state.auth} login={this.requestLogin} user={this.getCurrentUser} updateLocalStorage={this.updateLocalStorage} logout={this.logout} setAuthLoggedInTrue={this.setAuthLoggedInTrue}/>;
                 }} />
-
                 <Route exact path='/MyIdea/login/reset-password' render={(props) => {
                   return <ResetPassword {...props} authState={this.state.auth} login={this.requestLogin} user={this.getCurrentUser} resetPassword={this.resetPassword} updatePassword={this.updatePassword} updateLocalStorage={this.updateLocalStorage} logout={this.logout}/>;
                 }} />

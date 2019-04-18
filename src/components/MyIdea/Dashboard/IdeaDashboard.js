@@ -45,11 +45,6 @@ export default function IdeaDashboard(props) {
     return (
       <Redirect to='/myIdea' />
     );
-  
-  //  Condition below should be userIdeas.length > 0, userData.firstName is purely for testing purposes
-  // if (userData.firstName) {
-    // console.log(userData)
-    // console.log(userIdeas.idea[0].idea[3].answers[1])
 
     var listOne = userIdeas.map(idea => idea.idea.map(idea => idea))
 
@@ -79,13 +74,6 @@ export default function IdeaDashboard(props) {
         </div>
       </div>
     );
-  // } else {
-  //   return (
-  //     <div>
-  //     </div>
-  //   );
-    
-  // }
 }
 
 // Code below is just sample data because the ideas database is empty
