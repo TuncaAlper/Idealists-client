@@ -19,6 +19,7 @@
 	position: relative;
 	padding-left: 45px;
 	list-style: none;
+	color: #ccc;
   }
   .step-progress::before {
 	display: inline-block;
