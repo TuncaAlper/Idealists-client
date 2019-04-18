@@ -91,4 +91,8 @@
   }
   .step-progress strong {
 	display: block;
-  }
+	}
+
+	.header {
+		color:white
+	}

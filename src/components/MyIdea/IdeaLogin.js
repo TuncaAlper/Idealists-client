@@ -5,15 +5,25 @@ import { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 export default function IdeaLogin(props) {
-  
+  // console.log(localStorage)
   const [loginState, setLoginState] = useState({});
   
+  // added this while debugging login issues
+  const handleSubmitCallback = () => {
+    console.log('Hi from callback')
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(loginState);
-    if (props.authState.loggedIn) {
-    triggerUserData()
-    }
+    // e.preventDefault()
+    // if (props.authState.loggedIn) {
+    // triggerUserData()
+    // } else if (props.authState.error === true) {
+      
+    //   alert('You have entered an incorrect email or password, please refresh the page and try again')
+    //   e.preventDefault()
+    // }
   };
   
   const handleChange = (event) => {
@@ -26,12 +36,12 @@ export default function IdeaLogin(props) {
   
   const onSubmit = (data) => {
     const { email, password } = data;
-    props.login(email, password);
+    props.login(email, password, handleSubmitCallback);
   };
 
   const triggerUserData = () => {
-    if (props.authState) {
-    props.user()
+    if (props.authState.loggedIn) {
+    props.user(); console.log('line 34') 
     }
   }
 
@@ -39,16 +49,19 @@ export default function IdeaLogin(props) {
   //logout code
 
   //logout code
+  
+  // console.log('line 47')
+  // console.log(localStorage.currentUserJwt)
 
-  if (props.authState.loggedIn) {
-    props.history.replace('/MyIdea/new');
-    triggerUserData()
-    return <div></div>;
-  }
+  // // this code breaks the login function
+  // if (!localStorage.currentUserJwt) { console.log('line 48')
+  //   props.history.replace('/MyIdea/login'); console.log('line 48')
+  //   triggerUserData(); console.log('line 47')
+    // return <div></div>;
+  // }
   
   if (props.authState.loggedIn !== true) return (
     <Container>
-
       <LeftSide>
         <div>
           <h3>Login to My Idea Page</h3>
@@ -69,8 +82,8 @@ export default function IdeaLogin(props) {
           <button type='submit' onClick={()=> {props.history.replace('/MyIdea/login/reset-password')}}>Forgot your password?</button>
         </form>
       </RightSide>
-    </Container>);
-  else return <div></div>;
+    </Container>); 
+    else return (<Redirect to='/MyIdea/new' />)
 }
 
 const Logo = styled.img`

@@ -1,17 +1,25 @@
 import React, { useEffect, useState, Component } from 'react';
 import request from 'superagent';
 import { baseUrl } from '../../../constants';
-import './IdeaDashBoardDetail.css';
+import './IdeaDashBoardDetail.css'
 import styled from '@emotion/styled';
-
 import Card from '@material-ui/core/Card'
+import { Redirect, Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid'
+import Button from '../../reogranisation/Questions/Button';
 
 
 export default function IdeaDashboardDetail(props) {
     const [userIdeas, setUserIdeas] = useState([]);
+    
+    // progress bar
+    const [percentRange, setProgress] = useState(0);
+    
     const ideasId = props.match.params.id
-
+    if (props.authState.LoggedIn === false) {
+    return (
+      <Redirect to='/myIdea' />
+    ) }
     useEffect(() => {
         request
             .get(`${baseUrl}/ideas/${ideasId}`)
@@ -32,13 +40,16 @@ export default function IdeaDashboardDetail(props) {
             qAnswers.push(answer.qAnswer)
         })
     })
-
     qAnswers = qAnswers.map(answer => typeof answer === 'object' ? answer[0] ? answer[0].value : answer.value : answer)
 
     if (qAnswers[0] === 'true') {
         qAnswers[0] = 'yes'
     }
 
+    if (props.authState.LoggedIn === false && localStorage.currentUserJwt === null) {
+        return (
+          <Redirect to='/myIdea' />
+        ) }
     return (
         <div className="dashboard-container">
         <Container>
@@ -126,7 +137,8 @@ const StyledDiv = styled.div `
     border: 1px solid #ccc;
     padding: 20px;
     color: white;
-`;
+    margin-bottom: 20px
+`
 const StyledCard = styled(Card) `
     background-color: rgb(255,255,255, 0.3);
     padding-left: 8px;
@@ -185,6 +197,5 @@ const Container = styled.div`
     grid-template-columns: 1fr 3fr;
     grid-template-rows: 1fr;
     grid-template-areas: "left right";
-    
 	background-image: linear-gradient(to right top, #1a3d7c, #195d9c, #1f7fbb, #31a2d7, #4cc5f1);
 `;
