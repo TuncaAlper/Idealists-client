@@ -9,10 +9,26 @@ import './InvestorDashboard.css'
 
 
 export default function FormAssessIdeas (props) {
-    const [userLoggedIn, setUserLoggedIn] = useState(true);
-    if (props.authState.loggedIn === false)
-    return (
-      <Redirect to='/InvestorStart' />);
+
+  const [userData, setUserData] = useState({});
+  const [userLoggedIn, setUserLoggedIn] = useState(true);
+
+
+  useEffect(() => {
+    if (props.authState.loggedIn)
+      request
+        .get(`${baseUrl}/current`)
+        .set("Authorization", `Bearer ${props.authState.token}`)
+        .then(res => setUserData(res.body))
+    else console.log(props, "PROPSS") 
+    // props.history.push('/InvestorStart');
+  }, []);
+
+  const userLogout = () => {
+    localStorage.removeItem('currentUserJwt');
+    setUserLoggedIn(false);
+  };
+
     return (
         <div className='dashboard-container'>
             <AddlQuestions>

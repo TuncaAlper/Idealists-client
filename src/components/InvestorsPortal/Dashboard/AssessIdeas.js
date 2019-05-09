@@ -11,12 +11,12 @@ import Card from '@material-ui/core/Card'
 
 
 export default function AssessIdeas(props) {
-  
+
   const [userData, setUserData] = useState({});
   const [userLoggedIn, setUserLoggedIn] = useState(true);
-  
+
   const [expertIdeas, setExpertIdeas] = useState([]);
-  
+
   useEffect(() => {
     if (props.authState.loggedIn)
       request
@@ -25,76 +25,65 @@ export default function AssessIdeas(props) {
         .then(res => setUserData(res.body))
     else props.history.push('/InvestorStart');
   }, []);
-  
+
   useEffect(() => {
     if (props.authState.loggedIn)
-    request
-      .get(`${baseUrl}/ideas`)
-      .set("Authorization", `Bearer ${props.authState.token}`)
-      .then(res => setExpertIdeas(res.body));
-      
+      request
+        .get(`${baseUrl}/ideas`)
+        .set("Authorization", `Bearer ${props.authState.token}`)
+        .then(res => setExpertIdeas(res.body));
+
   }, []);
-  
+
   const userLogout = () => {
     localStorage.removeItem('currentUserJwt');
     setUserLoggedIn(false);
   };
 
-  console.log(expertIdeas)
-  
+  console.log(userLoggedIn, "LOGG")
+
   if (userLoggedIn === false)
     return (
       <Redirect to='/login' />);
-    
-    return (
 
-      <div className='dashboard-container'>
-        <br />
-        <br />
+  return (
 
-        <h4 className='title'>This is {userData.firstName}'s dashboard</h4>
-        <StyledCard>
-          Here you get to assess ideas in a very simple and fast way and get rewarded for it at the same time. 
-          When an idea you helped assess becomes incorporated, you’ll receive € 100,- worth of equity in that company. 
-          Assessing an idea takes on average 3 minutes.[Open]
+    <div className='dashboard-container'>
+      <br />
+      <br />
+
+      <h4 className='title'>This is {userData.firstName}'s dashboard</h4>
+      <StyledCard>
+        Here you get to assess ideas in a very simple and fast way and get rewarded for it at the same time.
+        When an idea you helped assess becomes incorporated, you’ll receive € 100,- worth of equity in that company.
+        Assessing an idea takes on average 3 minutes.[Open]
         </StyledCard>
-        <StyledCard>
-          <Link to='/investors/dashboard/assess/:id'>Sample Idea 1</Link>
-        </StyledCard>
-
-        <StyledCard>
-          <Link to='/investors/dashboard/assess/:id'>Sample Idea 2</Link>
-        </StyledCard>
-        {/* <div className='flex-tilescontainer'>
-          {expertIdeas.map(idea =>
-            <Link key={idea.id} className='tile-link' to={`/dashboard/ideas/${idea.id}`}>
-              <div className='idea-tile' key={idea.id}>
-                <p><b>{idea.idea[3].answers[0].qAnswer}</b></p>
-                <p>{idea.idea[3].answers[1].qAnswer}</p>
-                <p>{idea.idea[3].answers[1].qAnswer}</p>
-                {console.log(idea,"IDEAAA")}
-                {idea.progress.step01 === true &&
-                  idea.progress.step02 === true &&
-                  idea.progress.step03 === false && <p>Status: First patent check </p>}
-                {idea.progress.step01 === true &&
-                  idea.progress.step02 === true &&
-                  idea.progress.step03 === true &&
-                  idea.progress.step04 === false && <p>Status: Expert check </p>}
-              </div>
-              <div>
-                <br />
-                
-              </div>
+      <StyledCard>
+        {expertIdeas.map(idea =>
+          <Link key={idea.id} className='tile-link' to={`/investors/dashboard/assess/${idea.id}`}>
+            <div className='idea-tile' key={idea.id}>
+              <p>{idea.idea[3].answers[0].qAnswer}</p>
+              <br />
+              <p>{idea.idea[3].answers[1].qAnswer}</p>
+              {idea.progress === null ||
+                idea.progress.step01 === true &&
+                idea.progress.step02 === true &&
+                idea.progress.step03 === false && <p>Status: First patent check </p>}
+              {idea.progress === null ||
+                idea.progress.step01 === true &&
+                idea.progress.step02 === true &&
+                idea.progress.step03 === true &&
+                idea.progress.step04 === false && <p>Status: Expert check </p>}
+            </div>
+          </Link>
+        )}
+      </StyledCard>
+    </div>
+  )
+}
 
 
-            </Link>
-          )}
-        </div> */}
-      </div>
-    )}
-
-
-    const StyledCard = styled(Card) `
+const StyledCard = styled(Card)`
     background-color: rgb(255,255,255, 0.3);
     padding: 50px;
     width: 500px;
