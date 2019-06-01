@@ -104,13 +104,13 @@ export default function IdeaDashboardDetail(props) {
                   <StyledCard key={relevanceNumber[index]}>
                     <Link to={`ideas/${ideasId}/automatch/${relevanceNumber[index]}`} results={automatchResults} relevancenumber={relevanceNumber}>
                       <Paragraph>
-                        Title: {automatchTitle[index]}
+                        {automatchTitle[index]}
                         
                       </Paragraph>
                     </Link>
                     <Paragraph>
                       <strong>
-                        Text:
+                        Short summary (click title to open the full patent text and drawings)
                         </strong>
                       <br />
                       {automatchText[index]}
